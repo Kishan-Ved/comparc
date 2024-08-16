@@ -580,7 +580,7 @@ Proportion of meat portion wrt actual program: (0.00616353/0.013) = 0.47412
 
 Proportion of meat portion wrt actual program: (0.0494252/0.057) = 0.86711
 
-#### N = 256
+### N = 256
 | Execution | Time Spent (seconds) | Real Time | User Time | Sys Time |
 |-----------|----------------------|-----------|-----------|----------|
 | First     | 0.358945              | 0m0.373s  | 0m0.371s  | 0m0.002s |
@@ -722,7 +722,88 @@ Proportion of meat portion wrt actual program: (1846.7879/1848.322) = 0.99917
 
 ## C++ (Float matrix)
 
+**In this part, I have performed 3 iterations and taken the median (as done above), and only the median value is mentioned below.**
 
+```cpp
+#include <bits/stdc++.h>
+using namespace std;
+using namespace chrono;
+
+int main() {
+    int N = 64;
+    vector<vector<float>> matA(N, vector<float>(N));
+    vector<vector<float>> matB(N, vector<float>(N));
+    vector<vector<float>> matC(N, vector<float>(N, 0.0f));
+
+    for (int i = 0; i < N; ++i) {
+        for (int j = 0; j < N; ++j) {
+            matA[i][j] = static_cast<float>(rand()) / RAND_MAX * 100.0f; 
+            matB[i][j] = static_cast<float>(rand()) / RAND_MAX * 100.0f;
+        }
+    }
+
+    struct timespec start, end;
+    clock_gettime(CLOCK_MONOTONIC, &start);
+
+    for (int i = 0; i < N; ++i) {
+        for (int j = 0; j < N; ++j) {
+            for (int k = 0; k < N; ++k) {
+                matC[i][j] += matA[i][k] * matB[k][j];
+            }
+        }
+    }
+
+    clock_gettime(CLOCK_MONOTONIC, &end);
+
+    long long int secs = end.tv_sec - start.tv_sec;
+    long long int nsecs = end.tv_nsec - start.tv_nsec;
+    double elapsed = secs + nsecs * 1e-9;
+
+    cout << "Time spent: " << elapsed << " secs" << endl;
+    return 0;
+}
+
+```
+
+### N = 64
+- **Time spent**: 0.0118847 secs
+- **real**    0m0.018s
+- **user**    0m0.018s
+- **sys**     0m0.001s
+
+Proportion of meat portion wrt actual program: (0.01188/0.018) = 0.66
+
+### N = 128
+- **Time spent**: 0.0641931 secs
+- **real**    0m0.072s
+- **user**    0m0.068s
+- **sys**     0m0.002s
+
+Proportion of meat portion wrt actual program: (0.06419/0.072) = 0.8915
+
+### N = 256
+- **Time spent**: 0.364272 secs
+- **real**    0m0.379s
+- **user**    0m0.375s
+- **sys**     0m0.004s
+
+Proportion of meat portion wrt actual program: (0.3643/0.379) = 0.9612
+
+### N = 512
+- **Time spent**: 3.11515 secs
+- **real**    0m3.156s
+- **user**    0m3.154s
+- **sys**     0m0.001s
+
+Proportion of meat portion wrt actual program: (3.1152/3.156) = 0.98707
+
+### N = 1024
+- **Time spent**: 26.5513 secs
+- **real**    0m26.669s
+- **user**    0m26.659s
+- **sys**     0m0.007s
+
+Proportion of meat portion wrt actual program: (26.5513/26.669) = 0.99559
 
 ## Python (Float matrix)
 
@@ -765,7 +846,7 @@ print(f"Time spent: {elapsed} secs")
 - **Time spent**: 0.45248913764953613 secs
 - **real**    0m0.742s
 - **user**    0m1.066s
-- **sys **    0m1.232s
+- **sys**    0m1.232s
 
 Proportion of meat portion wrt actual program: (0.4525/0.7420) = 0.61
 
@@ -804,8 +885,14 @@ Proportion of meat portion wrt actual program: (230.8347/231.1440) = 0.9986
 
 Proportion of meat portion wrt actual program: (1855.4824/1859.855) = 0.9996
 
+## Plot of Real CPU time for C++ vs Python
+![image](https://github.com/user-attachments/assets/6fc091e1-d048-4c63-9f91-b85962c75219)
 
+## Plot of User CPU time for C++ vs Python
+![image](https://github.com/user-attachments/assets/ff4092b2-1d8c-4c99-809d-e396b0bd7673)
 
+## Plot of System CPU time for C++ vs Python
+![image](https://github.com/user-attachments/assets/005b257e-78b1-46de-8373-19be19fbccfa)
 
 
 
