@@ -892,7 +892,7 @@ Proportion of meat portion wrt actual program: (1855.4824/1859.855) = 0.9996
 ![image](https://github.com/user-attachments/assets/ff4092b2-1d8c-4c99-809d-e396b0bd7673)
 
 ## Plot of System CPU time for C++ vs Python
-![image](https://github.com/user-attachments/assets/005b257e-78b1-46de-8373-19be19fbccfa)
+![image](https://github.com/user-attachments/assets/166e2fd6-8bcd-4b15-8d99-8261193fc23e)
 
 ## Observations
 - System CPU time is much lower than User CPU time
