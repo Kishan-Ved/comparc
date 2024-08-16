@@ -731,9 +731,9 @@ using namespace chrono;
 
 int main() {
     int N = 64;
-    vector<vector<float>> matA(N, vector<float>(N));
-    vector<vector<float>> matB(N, vector<float>(N));
-    vector<vector<float>> matC(N, vector<float>(N, 0.0f));
+    vector<vector<double>> matA(N, vector<float>(N));
+    vector<vector<double>> matB(N, vector<float>(N));
+    vector<vector<double>> matC(N, vector<float>(N, 0.0f));
 
     for (int i = 0; i < N; ++i) {
         for (int j = 0; j < N; ++j) {
@@ -894,5 +894,14 @@ Proportion of meat portion wrt actual program: (1855.4824/1859.855) = 0.9996
 ## Plot of System CPU time for C++ vs Python
 ![image](https://github.com/user-attachments/assets/005b257e-78b1-46de-8373-19be19fbccfa)
 
-
+## Observations
+- System CPU time is much lower than User CPU time
+- The System CPU time is nearly constant (or increases very slightly on increasing the value of N), this is because it is the amount of time the CPU was busy executing code in kernel space. This does not include the meat portion of the program.
+- The time taken for the meat portion of the program is included in the user CPU time
+- The time taken for executing C++ code is much lesser than the time taken by the Python code
+- The real CPU time is almost equal to the user CPU time, as the system CPU time is very low
+- As the value of N increases, the time taken increases. Roughly, when N is doubled, the total CPU time becomes 8 times. This is because matrix multiplication is an O(N^3) operation, and 2^3 = 8
+- As the value of N increases, the proportion of meat protion's time wrt actual program's time becomes closer to 1, this is because the system time is nearly constant and the user CPU time increases (as the number of operations to be performed increase) on increasing the value of N.
+- The number of operations perfomed in a unit time is larger for C++ when compared to Python. This is because of the language design
+- For both Python and C++, the integer operations are faster (based on total CPU time), this is becuase they require lesser memory (int datatype in C++ is 4 bytes while double is 8 bytes), moreover, integer operations are simpler, they involve basic circuitry (if translated to circuit based operations), double datatype on the other hand requires more complex handling of the decimal and the fractional part (which increases the number of operations needed, as they have more precision when compared to int). Converting int from decimal to binary is also simpler (requires lesser operations) than converting a double value to binary
 
